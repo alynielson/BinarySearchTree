@@ -8,62 +8,49 @@ namespace BinarySearchTree
 {
     class Tree
     {
-        Node node;
         Node root;
-        int height;
         Node nodeToCheck;
-
 
         public Tree()
         {
-            height = 0;
+            root = null;
         }
-
-       
 
         private void AddNode(int value)
         {
-            if (height == 0)
+            if (root == null)
             {
                 root = new Node(value);
-                node.level = 0;
-                nodeToCheck = root; 
             }
-           
+            else
+            {
+                Node nodeToPlace = new Node(value);
+                nodeToCheck = root;
+                while (nodeToPlace.parent == null)
+                {
+                    if (nodeToPlace.value < nodeToCheck.value)
+                    {
+                        SearchForSpotInDirection(nodeToCheck.leftChild, nodeToPlace);
+
+                    }
+                    else if (nodeToPlace.value >= nodeToCheck.value)
+                    {
+                        SearchForSpotInDirection(nodeToCheck.rightChild, nodeToPlace);
+                    }
+                }
+            } 
         }
 
-        private void CompareNodes(Node node)
+        private void SearchForSpotInDirection(Node childInDirection, Node nodeToPlace)
         {
-            while (node.parent == null)
+            if (childInDirection == null)
             {
-                if (node.value < nodeToCheck.value)
-                {
-                    if (nodeToCheck.leftChild == null)
-                    {
-                        nodeToCheck.leftChild = node;
-                        node.parent = nodeToCheck;
-                        node.level = node.parent.level + 1;
-                    }
-                    else
-                    {
-                        nodeToCheck = nodeToCheck.leftChild;
-                    }
-
-                }
-                else if (node.value >= nodeToCheck.value)
-                {
-                    if (nodeToCheck.rightChild == null)
-                    {
-                        nodeToCheck.rightChild = node;
-                        node.parent = nodeToCheck;
-                        node.level = node.parent.level + 1;
-                    }
-                    else
-                    {
-                        nodeToCheck = nodeToCheck.rightChild;
-                    }
-                }
-               
+                childInDirection = nodeToPlace;
+                nodeToPlace.parent = nodeToCheck;
+            }
+            else
+            {
+                nodeToCheck = childInDirection;
             }
         }
 
