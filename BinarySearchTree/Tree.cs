@@ -10,17 +10,27 @@ namespace BinarySearchTree
     {
         Node root;
         Node nodeToCheck;
+        public int numberOfLeaves;
 
         public Tree()
         {
             root = null;
+            numberOfLeaves = 0;
         }
 
-        private void AddNode(int value)
+        public void AddNode()
+        {
+            int value = UserInterface.EnterNewValueForTree();
+            PlaceNewNode(value);
+            UserInterface.SuccessMessageForAdd();
+        }
+
+        private void PlaceNewNode(int value)
         {
             if (root == null)
             {
                 root = new Node(value);
+                numberOfLeaves++;
             }
             else
             {
@@ -47,6 +57,7 @@ namespace BinarySearchTree
             {
                 childInDirection = nodeToPlace;
                 nodeToPlace.parent = nodeToCheck;
+                numberOfLeaves++;
             }
             else
             {

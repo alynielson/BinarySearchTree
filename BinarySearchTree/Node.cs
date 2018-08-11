@@ -12,16 +12,16 @@ namespace BinarySearchTree
         public Node rightChild;
         public Node parent;
 
-        public int level;
+        
         public int value;
 
 
         public Node(int value)
         {
             this.value = value;
-            Node parent = null;
-            Node leftChild = null;
-            Node rightChild = null;
+            parent = null;
+            leftChild = null;
+            rightChild = null;
         }
 
        
