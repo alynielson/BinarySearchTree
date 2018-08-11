@@ -25,6 +25,20 @@ namespace BinarySearchTree
             UserInterface.SuccessMessageForAdd();
         }
 
+        public void SearchForNode()
+        {
+            int value = UserInterface.EnterValueToSearch();
+            bool didFindValue = FindNode(value);
+            if (didFindValue == true)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+
         private void PlaceNewNode(int value)
         {
             if (root == null)
@@ -40,18 +54,18 @@ namespace BinarySearchTree
                 {
                     if (nodeToPlace.value < nodeToCheck.value)
                     {
-                        SearchForSpotInDirection(nodeToCheck.leftChild, nodeToPlace);
+                        SearchForEmptySpotInDirection(nodeToCheck.leftChild, nodeToPlace);
 
                     }
                     else if (nodeToPlace.value >= nodeToCheck.value)
                     {
-                        SearchForSpotInDirection(nodeToCheck.rightChild, nodeToPlace);
+                        SearchForEmptySpotInDirection(nodeToCheck.rightChild, nodeToPlace);
                     }
                 }
             } 
         }
 
-        private void SearchForSpotInDirection(Node childInDirection, Node nodeToPlace)
+        private void SearchForEmptySpotInDirection(Node childInDirection, Node nodeToPlace)
         {
             if (childInDirection == null)
             {
@@ -65,7 +79,42 @@ namespace BinarySearchTree
             }
         }
 
-        
+        private bool FindNode(int value)
+        {
+            bool wasFound;
+            if (root == null)
+            {
+                wasFound = false;
+            }
+            else
+            {
+                nodeToCheck = root;
+                while (wasFound = false && nodeToCheck != null)
+                {
+                    if (value < nodeToCheck.value)
+                    {
+                        MoveToNextNodeToSearch(nodeToCheck.leftChild, "left");
+
+                    }
+                    else if (value > nodeToCheck.value)
+                    {
+                        MoveToNextNodeToSearch(nodeToCheck.rightChild, "right");
+                    }
+                    else if (value == nodeToCheck.value)
+                    {
+                        wasFound = true;
+                    }
+                }
+            }
+            return wasFound;
+
+        }
+
+        private void MoveToNextNodeToSearch(Node childInDirection, string direction)
+        {
+            Console.WriteLine($"Went {direction}, value was {childInDirection.value}");
+            nodeToCheck = childInDirection;
+        }
 
         
         
