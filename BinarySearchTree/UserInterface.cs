@@ -35,6 +35,15 @@ namespace BinarySearchTree
             return value;
         }
 
+        public static int EnterValueToSearch()
+        {
+            Console.Clear();
+            Console.WriteLine("Enter an integer to search for:");
+            string response = Console.ReadLine();
+            int value = ValidateNumericResponse(response);
+            return value;
+        }
+
         public static void SuccessMessageForAdd()
         {
             Console.WriteLine("Node placed! Press Enter to continue.");
