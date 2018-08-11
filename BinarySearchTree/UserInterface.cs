@@ -35,6 +35,21 @@ namespace BinarySearchTree
             return value;
         }
 
+        public static void ResultMessageForSearch(bool didFindValue)
+        {
+            if (didFindValue == true)
+            {
+                Console.WriteLine("Value found!");
+            }
+            else
+            {
+                Console.WriteLine("Value was not found in the tree.");
+            }
+            Console.WriteLine("Press Enter to continue.");
+            Console.ReadLine();
+            Console.Clear();
+        }
+
         public static int EnterValueToSearch()
         {
             Console.Clear();

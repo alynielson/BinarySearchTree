@@ -29,14 +29,7 @@ namespace BinarySearchTree
         {
             int value = UserInterface.EnterValueToSearch();
             bool didFindValue = FindNode(value);
-            if (didFindValue == true)
-            {
-
-            }
-            else
-            {
-
-            }
+            UserInterface.ResultMessageForSearch(didFindValue);
         }
 
         private void PlaceNewNode(int value)
@@ -54,22 +47,29 @@ namespace BinarySearchTree
                 {
                     if (nodeToPlace.value < nodeToCheck.value)
                     {
-                        SearchForEmptySpotInDirection(nodeToCheck.leftChild, nodeToPlace);
+                        SearchForEmptySpotInDirection(nodeToCheck.leftChild, nodeToPlace, "left");
 
                     }
                     else if (nodeToPlace.value >= nodeToCheck.value)
                     {
-                        SearchForEmptySpotInDirection(nodeToCheck.rightChild, nodeToPlace);
+                        SearchForEmptySpotInDirection(nodeToCheck.rightChild, nodeToPlace, "right");
                     }
                 }
             } 
         }
 
-        private void SearchForEmptySpotInDirection(Node childInDirection, Node nodeToPlace)
+        private void SearchForEmptySpotInDirection(Node childInDirection, Node nodeToPlace, string direction)
         {
             if (childInDirection == null)
             {
-                childInDirection = nodeToPlace;
+                if (direction == "left")
+                {
+                    nodeToCheck.leftChild = nodeToPlace;
+                }
+                else if (direction == "right")
+                {
+                    nodeToCheck.rightChild = nodeToPlace;
+                }
                 nodeToPlace.parent = nodeToCheck;
                 numberOfLeaves++;
             }
@@ -89,16 +89,17 @@ namespace BinarySearchTree
             else
             {
                 nodeToCheck = root;
-                while (wasFound = false && nodeToCheck != null)
+                wasFound = false;
+                while (wasFound == false && nodeToCheck != null)
                 {
                     if (value < nodeToCheck.value)
                     {
-                        MoveToNextNodeToSearch(nodeToCheck.leftChild, "left");
+                        MoveToNextNodeToSearch(nodeToCheck.leftChild, "left", nodeToCheck.value);
 
                     }
                     else if (value > nodeToCheck.value)
                     {
-                        MoveToNextNodeToSearch(nodeToCheck.rightChild, "right");
+                        MoveToNextNodeToSearch(nodeToCheck.rightChild, "right", nodeToCheck.value);
                     }
                     else if (value == nodeToCheck.value)
                     {
@@ -110,10 +111,18 @@ namespace BinarySearchTree
 
         }
 
-        private void MoveToNextNodeToSearch(Node childInDirection, string direction)
+        private void MoveToNextNodeToSearch(Node childInDirection, string direction, int originalValue)
         {
-            Console.WriteLine($"Went {direction}, value was {childInDirection.value}");
-            nodeToCheck = childInDirection;
+            if (childInDirection == null)
+            {
+                Console.WriteLine($"Went {direction} from {originalValue}, no value was present");
+                nodeToCheck = null;
+            }
+            else
+            {
+                Console.WriteLine($"Went {direction} from {originalValue}, value was {childInDirection.value}");
+                nodeToCheck = childInDirection;
+            }
         }
 
         

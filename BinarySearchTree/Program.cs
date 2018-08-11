@@ -23,7 +23,7 @@ namespace BinarySearchTree
                 }
                 else if (action == 2)
                 {
-
+                    tree.SearchForNode();
                 }
                 else if (action == 3)
                 {
